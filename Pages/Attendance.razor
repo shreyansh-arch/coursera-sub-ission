@@ -1,0 +1,31 @@
+@page "/attendance"
+@inject AttendeeService AttendeeService
+
+<h3>Attendance Tracker</h3>
+
+<input type="text" class="form-control" @bind="newAttendee" placeholder="Enter attendee name" />
+<button class="btn btn-success mt-2" @onclick="AddAttendee">Add Attendee</button>
+
+@if (AttendeeService.Attendees.Count > 0)
+{
+    <ul class="mt-3">
+        @foreach (var attendee in AttendeeService.Attendees)
+        {
+            <li>@attendee</li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-muted mt-3">No attendees added yet.</p>
+}
+
+@code {
+    private string newAttendee;
+
+    private void AddAttendee()
+    {
+        AttendeeService.AddAttendee(newAttendee);
+        newAttendee = string.Empty;
+    }
+}
