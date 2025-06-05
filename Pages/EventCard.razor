@@ -1,0 +1,20 @@
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Description { get; set; }
+
+    private string note;
+
+    private void SaveNote(ChangeEventArgs e)
+    {
+        note = e.Value?.ToString();
+    }
+}
+
+<div class="event-card">
+    <h4>@Title</h4>
+    <p>@Description</p>
+    <input type="text" @bind="note" placeholder="Write a note..." />
+</div>
