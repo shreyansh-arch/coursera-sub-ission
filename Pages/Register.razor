@@ -1,0 +1,40 @@
+@page "/register"
+@using EventEase.Models
+
+<EditForm Model="@registration" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Name:</label>
+        <InputText class="form-control" @bind-Value="registration.Name" />
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <InputText class="form-control" @bind-Value="registration.Email" />
+    </div>
+
+    <div class="form-group">
+        <label>Event Name:</label>
+        <InputText class="form-control" @bind-Value="registration.EventName" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Register</button>
+</EditForm>
+
+@if (successMessage != null)
+{
+    <div class="alert alert-success mt-3">@successMessage</div>
+}
+
+@code {
+    private RegistrationModel registration = new();
+    private string? successMessage;
+
+    private void HandleValidSubmit()
+    {
+        successMessage = $"Successfully registered {registration.Name} for {registration.EventName}.";
+        registration = new();
+    }
+}
